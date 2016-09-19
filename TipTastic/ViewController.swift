@@ -18,19 +18,20 @@ class ViewController: UIViewController {
     var defaults = UserDefaults.standard
     var tipPercentages = [0.18, 0.20, 0.25]
     
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onApplicationDidBecomeActive), name: .UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onApplicationWillResignActive), name: .UIApplicationWillResignActive, object: nil)
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         let intValue = defaults.integer(forKey: "defaultTipIndex")
-        print("tipindex on willappear: \(intValue)")
         
         tipControl.selectedSegmentIndex = intValue
         updateTipAndTotalAmounts()
@@ -38,11 +39,18 @@ class ViewController: UIViewController {
         billField.becomeFirstResponder()
     }
     
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+   
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .UIApplicationWillResignActive, object: nil)
+    }
+
     
     @IBAction func calculateTip(_ sender: AnyObject) {
         
@@ -50,21 +58,19 @@ class ViewController: UIViewController {
         
     }
     
-    func saveAmounts(bill: Double, tipPercentageIndex: Int) {
+    func saveState(bill: String, tipPercentageIndex: Int) {
         defaults.setValue(Date.init(), forKeyPath: "dateSaved")
         defaults.setValue(bill, forKeyPath: "bill")
         defaults.setValue(tipPercentageIndex, forKeyPath: "tipPercentageIndex")
         defaults.synchronize();
     }
     
-    func loadAmounts() {
-         let bill = defaults.double(forKey: "bill")
+    func loadState() {
+         let bill = defaults.string(forKey: "bill")
          let tipPercentage = defaults.integer(forKey: "tipPercentageIndex")
         
-        billField.text = String(bill)
+        billField.text = bill
         tipControl.selectedSegmentIndex = tipPercentage
-
-        updateTipAndTotalAmounts()
 
     }
     
@@ -95,12 +101,35 @@ class ViewController: UIViewController {
         
         
         let minBetween = calendar.dateComponents([.minute], from: lastSavedDate, to: dateNow)
-        print("min since: \(minBetween)")
         
         return minBetween.minute! > 10
     }
     
-
+    func resetAmount() {
+        billField.text = ""
+        updateTipAndTotalAmounts()
+    }
+    
+    func onApplicationDidBecomeActive(){
+        
+        let savedDate = defaults.object(forKey: "saveDate") as? Date ?? Date.init()
+        
+        if isResetAmount(lastSavedDate: savedDate) {
+            resetAmount()
+        } else {
+            loadState()
+            updateTipAndTotalAmounts()
+        }
+        
+    }
+    
+    func onApplicationWillResignActive() {
+        
+        saveState(bill: billField.text!, tipPercentageIndex: tipControl.selectedSegmentIndex)
+        
+    }
+    
+   
     @IBAction func onTap(_ sender: AnyObject) {
         view.endEditing(true)
     }

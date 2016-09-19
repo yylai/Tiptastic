@@ -29,10 +29,10 @@ class SettingsViewController: UIViewController {
     
     @IBAction func onDefaultTipChange(_ sender: AnyObject) {
         
-        let defaults = UserDefaults.standard;
+        let defaults = UserDefaults.standard
         
-        defaults.setValue(defaultTipControl.selectedSegmentIndex, forKeyPath: "defaultTipIndex");
-        defaults.synchronize();
+        defaults.setValue(defaultTipControl.selectedSegmentIndex, forKeyPath: "defaultTipIndex")
+        defaults.synchronize()
     }
 
 }

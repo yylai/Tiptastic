@@ -4,7 +4,7 @@
 
 Submitted by: **Yin Yee Lai**
 
-Time spent: **3** hours spent in total
+Time spent: **6** hours spent in total
 
 ## User Stories
 
@@ -15,8 +15,8 @@ The following **required** functionality is complete:
 
 The following **optional** features are implemented:
 * [ ] UI animations
-* [ ] Remembering the bill amount across app restarts (if <10mins)
-* [ ] Using locale-specific currency and currency thousands separators.
+* [x] Remembering the bill amount across app restarts (if <10mins)
+* [x] Using locale-specific currency and currency thousands separators.
 * [x] Making sure the keyboard is always visible and the bill amount is always the first responder. This way the user doesn't have to tap anywhere to use this app. Just launch the app and start typing.
 
 The following **additional** features are implemented:
@@ -27,7 +27,14 @@ Optional features + additional features are In Progress :)
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://github.com/yylai/Tiptastic/blob/master/walkthrough.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+*Required + currency thousands separators demo*
+<img src='https://github.com/yylai/Tiptastic/blob/master/walkthrough.gif' title='Video Walkthrough Required' width='' alt='Video Walkthrough Required' />
+
+*Locale-specific currency*
+<img src='https://github.com/yylai/Tiptastic/blob/master/walkthrough-locale.gif' title='Video Walkthrough Locale' width='' alt='Video Walkthrough Locale' />
+
+*Remembering the bill amount across app restarts*
+<img src='https://github.com/yylai/Tiptastic/blob/master/walkthrough-state.gif' title='Video Walkthrough State' width='' alt='Video Walkthrough State' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 

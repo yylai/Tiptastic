@@ -27,13 +27,13 @@ Optional features + additional features are In Progress :)
 
 Here's a walkthrough of implemented user stories:
 
-*Required + currency thousands separators demo*
+### Required + currency thousands separators demo
 <img src='https://github.com/yylai/Tiptastic/blob/master/walkthrough.gif' title='Video Walkthrough Required' width='' alt='Video Walkthrough Required' />
 
-*Locale-specific currency*
+### Locale-specific currency
 <img src='https://github.com/yylai/Tiptastic/blob/master/walkthrough-locale.gif' title='Video Walkthrough Locale' width='' alt='Video Walkthrough Locale' />
 
-*Remembering the bill amount across app restarts*
+### Remembering the bill amount across app restarts
 <img src='https://github.com/yylai/Tiptastic/blob/master/walkthrough-state.gif' title='Video Walkthrough State' width='' alt='Video Walkthrough State' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).

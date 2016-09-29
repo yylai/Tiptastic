@@ -15,7 +15,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" misplaced="YES" id="vG3-n5-l5j">
-                                <frame key="frameInset" minY="93" width="375" height="231"/>
+                                <frame key="frameInset" minY="65" width="375" height="259"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="jHA-DR-T0t">
@@ -26,6 +26,7 @@
                                             <segment title="20%"/>
                                             <segment title="25%"/>
                                         </segments>
+                                        <color key="tintColor" red="1" green="0.60392156860000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="calculateTip:" destination="BYZ-38-t0r" eventType="valueChanged" id="Ugh-vL-5Oz"/>
                                         </connections>
@@ -58,7 +59,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" misplaced="YES" id="RhP-6B-4c1">
-                                <frame key="frameInset" minY="323" width="487" height="139"/>
+                                <frame key="frameInset" minY="297" width="487" height="139"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="$0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bDI-Va-J7J">
@@ -76,10 +77,9 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="0.85483192616106773" blue="0.64908115317852622" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="1" green="0.85490196078431369" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="fvu-rD-16d" appends="YES" id="L7Y-xp-JhC"/>
@@ -87,17 +87,21 @@
                     </view>
                     <navigationItem key="navigationItem" title="Tiptastic" id="wsQ-2j-LQZ">
                         <barButtonItem key="rightBarButtonItem" title="Settings" id="dkn-Na-DdQ">
-                            <color key="tintColor" red="1" green="0.60522742360000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <segue destination="MV8-Au-DQ8" kind="push" id="6DK-3F-0kF"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="NavItem" destination="dkn-Na-DdQ" id="jgi-p9-KhN"/>
                         <outlet property="billField" destination="a7x-Kl-9v6" id="Rwf-j1-LKy"/>
+                        <outlet property="billTipView" destination="vG3-n5-l5j" id="IXR-Bz-5c5"/>
                         <outlet property="tipControl" destination="jHA-DR-T0t" id="8gZ-kQ-9BS"/>
                         <outlet property="tipLabel" destination="QjH-M0-28J" id="Ol6-gU-3ng"/>
+                        <outlet property="tipPlusLabel" destination="iyW-C0-VDi" id="5QY-D1-oDd"/>
                         <outlet property="totalLabel" destination="bDI-Va-J7J" id="hdb-jU-biv"/>
+                        <outlet property="totalTitleLabel" destination="saS-sF-gzd" id="Gyd-rM-SJw"/>
+                        <outlet property="totalView" destination="RhP-6B-4c1" id="WsK-Ya-fyS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -129,6 +133,7 @@
                                             <segment title="20%"/>
                                             <segment title="25%"/>
                                         </segments>
+                                        <color key="tintColor" red="1" green="0.60392156860000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="onDefaultTipChange:" destination="MV8-Au-DQ8" eventType="valueChanged" id="2bH-hW-ZeJ"/>
                                         </connections>
@@ -163,19 +168,28 @@
                                         <frame key="frameInset" minX="307" minY="15" width="51" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="onTintColor" red="0.12653660330165961" green="0.86288718704988954" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="onTintColor" red="0.12549019607843137" green="0.86274509803921573" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <action selector="onDarkThemeChange:" destination="MV8-Au-DQ8" eventType="valueChanged" id="7ky-Xh-npC"/>
+                                        </connections>
                                     </switch>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.95483116388320921" green="0.95483116388320921" blue="0.95483116388320921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.95294117647058818" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="Eqf-HT-Zf5">
                         <barButtonItem key="backBarButtonItem" title="Back" id="qRe-Ny-a5p"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="darkThemeSwitch" destination="UOA-Mg-Ptk" id="nQT-gB-mfC"/>
+                        <outlet property="darkThemeView" destination="UCz-Vm-kgl" id="MYp-Np-mLH"/>
                         <outlet property="defaultTipControl" destination="yxV-Db-y5u" id="Pd0-sN-rlt"/>
+                        <outlet property="navBar" destination="Eqf-HT-Zf5" id="zou-Gl-uTj"/>
+                        <outlet property="themeLabel" destination="ukc-wb-gC9" id="Ult-Sd-ZPN"/>
+                        <outlet property="tipLabel" destination="ntH-dS-QrJ" id="Wg1-uN-18P"/>
+                        <outlet property="tipView" destination="HDg-iz-snq" id="Dky-ED-JBx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s8E-zg-FWY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -206,5 +220,4 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
     </simulatedMetricsContainer>
-    <color key="tintColor" red="1" green="0.60522742360000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

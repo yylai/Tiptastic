@@ -301,6 +301,7 @@
 				A35C66C31D8E257A0024F92E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

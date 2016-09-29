@@ -12,20 +12,23 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var billField: UITextField!
     @IBOutlet weak var totalLabel: UILabel!
+    @IBOutlet weak var totalTitleLabel: UILabel!
     @IBOutlet weak var tipLabel: UILabel!
+    @IBOutlet weak var tipPlusLabel: UILabel!
     @IBOutlet weak var tipControl: UISegmentedControl!
+    @IBOutlet weak var billTipView: UIView!
+    @IBOutlet weak var totalView: UIView!
+    @IBOutlet weak var NavItem: UIBarButtonItem!
     
     var defaults = UserDefaults.standard
     var tipPercentages = [0.18, 0.20, 0.25]
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.onApplicationDidBecomeActive), name: .UIApplicationDidBecomeActive, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.onApplicationWillResignActive), name: .UIApplicationWillResignActive, object: nil)
-        
-        
+      
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,6 +40,9 @@ class ViewController: UIViewController {
         updateTipAndTotalAmounts()
         
         billField.becomeFirstResponder()
+        
+        let isDarkTheme = defaults.bool(forKey: "darkThemeOn")
+        setTheme(isDark: isDarkTheme)
     }
     
     
@@ -129,9 +135,56 @@ class ViewController: UIViewController {
         
     }
     
-   
+  
     @IBAction func onTap(_ sender: AnyObject) {
         view.endEditing(true)
+    }
+    
+    func setTheme(isDark: Bool) {
+        
+        if (isDark) {
+            let BGColor = UIColor.darkGray
+            let TotalBG = UIColor(red:0.25, green:0.25, blue:0.25, alpha:1.0)
+            let TealTint = UIColor(red:0.13, green:0.86, blue:1.00, alpha:1.0)
+            let TextColor = UIColor.white
+            
+            self.view.backgroundColor = BGColor
+            
+            billField.tintColor = TealTint
+            
+            billTipView.backgroundColor = BGColor
+            billField.textColor = TextColor
+            tipLabel.textColor = TextColor
+            tipPlusLabel.textColor = TextColor
+            tipControl.tintColor = TealTint
+            
+            totalView.backgroundColor = TotalBG
+            totalLabel.textColor = TextColor
+            totalTitleLabel.textColor = TextColor
+            
+            
+        } else {
+            
+            let OrangeTint = UIColor(red:1.00, green:0.60, blue:0.00, alpha:1.0)
+            
+            let BGColor = UIColor.white
+            let TotalBG = UIColor(red:1.00, green:0.85, blue:0.65, alpha:1.0)
+            let TextColor = UIColor.black
+            
+            self.view.backgroundColor = BGColor
+            
+            billField.tintColor = UIColor.black
+            
+            billTipView.backgroundColor = BGColor
+            billField.textColor = TextColor
+            tipLabel.textColor = TextColor
+            tipPlusLabel.textColor = TextColor
+            tipControl.tintColor = OrangeTint
+            
+            totalView.backgroundColor = TotalBG
+            totalLabel.textColor = TextColor
+            totalTitleLabel.textColor = TextColor        }
+        
     }
 
 }

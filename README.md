@@ -21,6 +21,7 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 * [x] Improved UI with new color theme, cleaner spacing and font style
+* [x] Added Dark Theme support
 
 ## Video Walkthrough 
 
@@ -34,6 +35,9 @@ Here's a walkthrough of implemented user stories:
 
 ### Remembering the bill amount across app restarts
 <img src='https://github.com/yylai/Tiptastic/blob/master/walkthrough-state.gif' title='Video Walkthrough State' width='' alt='Video Walkthrough State' />
+
+### Dark Theme Support
+<img src='https://github.com/yylai/Tiptastic/blob/master/walkthrough-theme.gif' title='Video Walkthrough Theme' width='' alt='Video Walkthrough Theme' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 

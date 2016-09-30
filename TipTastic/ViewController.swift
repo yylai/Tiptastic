@@ -29,6 +29,7 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.onApplicationDidBecomeActive), name: .UIApplicationDidBecomeActive, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.onApplicationWillResignActive), name: .UIApplicationWillResignActive, object: nil)
       
+        totalView.transform = CGAffineTransform(translationX: 0, y: 500)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,7 +41,6 @@ class ViewController: UIViewController {
         updateTipAndTotalAmounts()
         
         billField.becomeFirstResponder()
-        
         let isDarkTheme = defaults.bool(forKey: "darkThemeOn")
         setTheme(isDark: isDarkTheme)
     }
@@ -51,6 +51,20 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func onApplicationDidBecomeActive(){
+        let savedDate = defaults.object(forKey: "saveDate") as? Date ?? Date.init()
+        
+        if isResetAmount(lastSavedDate: savedDate) {
+            resetAmount()
+        } else {
+            loadState()
+            updateTipAndTotalAmounts()
+        }
+    }
+    
+    func onApplicationWillResignActive() {
+        saveState(bill: billField.text!, tipPercentageIndex: tipControl.selectedSegmentIndex)
+    }
    
     deinit {
         NotificationCenter.default.removeObserver(self, name: .UIApplicationDidBecomeActive, object: nil)
@@ -59,10 +73,31 @@ class ViewController: UIViewController {
 
     
     @IBAction func calculateTip(_ sender: AnyObject) {
-        
+        animateTotalView()
         updateTipAndTotalAmounts()
-        
     }
+    
+    func animateTotalView() {
+        let bill = Double(billField.text!) ?? 0
+        if (bill == 0) {
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations: {
+                self.totalView.transform = CGAffineTransform(translationX: 0, y: 500)}, completion: nil)
+            
+        } else {
+            UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseOut, animations: {
+                self.totalView.transform = CGAffineTransform.init(scaleX: 1, y: 1)}, completion: nil)
+        }
+    }
+    
+    func updateTipAndTotalAmounts() {
+        let bill = Double(billField.text!) ?? 0
+        let tip = bill * tipPercentages[tipControl.selectedSegmentIndex]
+        let total = bill + tip
+        
+        tipLabel.text = formatAmount(amt: tip)
+        totalLabel.text = formatAmount(amt: total)
+    }
+
     
     func saveState(bill: String, tipPercentageIndex: Int) {
         defaults.setValue(Date.init(), forKeyPath: "dateSaved")
@@ -77,7 +112,6 @@ class ViewController: UIViewController {
         
         billField.text = bill
         tipControl.selectedSegmentIndex = tipPercentage
-
     }
     
     func formatAmount(amt: Double) -> String {
@@ -85,26 +119,13 @@ class ViewController: UIViewController {
         numberFormatter.numberStyle = .currency
         numberFormatter.usesGroupingSeparator = true
         
-        
         return numberFormatter.string(from: NSNumber.init(value: amt))!
     }
     
-    func updateTipAndTotalAmounts() {
-        
-        
-        let bill = Double(billField.text!) ?? 0
-        
-        let tip = bill * tipPercentages[tipControl.selectedSegmentIndex]
-        let total = bill + tip
-        
-        tipLabel.text = formatAmount(amt: tip)
-        totalLabel.text = formatAmount(amt: total)
-    }
     
     func isResetAmount(lastSavedDate: Date) -> Bool {
         let dateNow = Date.init()
         let calendar = Calendar.current
-        
         
         let minBetween = calendar.dateComponents([.minute], from: lastSavedDate, to: dateNow)
         
@@ -116,29 +137,10 @@ class ViewController: UIViewController {
         updateTipAndTotalAmounts()
     }
     
-    func onApplicationDidBecomeActive(){
-        
-        let savedDate = defaults.object(forKey: "saveDate") as? Date ?? Date.init()
-        
-        if isResetAmount(lastSavedDate: savedDate) {
-            resetAmount()
-        } else {
-            loadState()
-            updateTipAndTotalAmounts()
-        }
-        
-    }
-    
-    func onApplicationWillResignActive() {
-        
-        saveState(bill: billField.text!, tipPercentageIndex: tipControl.selectedSegmentIndex)
-        
-    }
-    
-  
     @IBAction func onTap(_ sender: AnyObject) {
         view.endEditing(true)
     }
+
     
     func setTheme(isDark: Bool) {
         
@@ -161,10 +163,7 @@ class ViewController: UIViewController {
             totalView.backgroundColor = TotalBG
             totalLabel.textColor = TextColor
             totalTitleLabel.textColor = TextColor
-            
-            
         } else {
-            
             let OrangeTint = UIColor(red:1.00, green:0.60, blue:0.00, alpha:1.0)
             
             let BGColor = UIColor.white
@@ -184,7 +183,6 @@ class ViewController: UIViewController {
             totalView.backgroundColor = TotalBG
             totalLabel.textColor = TextColor
             totalTitleLabel.textColor = TextColor        }
-        
     }
 
 }
